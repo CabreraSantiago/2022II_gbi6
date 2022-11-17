@@ -15,5 +15,5 @@ Los tópicos cubiertos son:
 - 🔭 **Moisés Gualapuro**: Docente.  
 
 - 🌱 **Francisco Mendoza**: TA.
-#Estudiantes:
-Alejandra Toro
+- # Estudiantes:
+- Alejandra Toro
