@@ -1,0 +1,43 @@
+---
+title: "Deber"
+author: "Cabrera Santiago"
+---
+
+```{r librerias}
+
+library(ggplot2); library(ggpubr); library(ggpmisc); library(dplyr); library(tidyverse); library(ggpp); library(colourpicker)
+```
+
+```{r carga de datos}
+help("who")
+dt= who
+```
+
+```{r seleccion de datos}
+#Niños y niñas de 0 a 14 años 
+pr <- dt %>% select("year", "new_sp_m014", "new_sp_f014" )
+prf= pr %>% filter(new_sp_m014 > 0)
+prm= prf %>% filter(new_sp_f014 > 0)
+prm
+```
+
+```{r filtro por años desde 1996-2012}
+dt3= prm %>% filter(year >= 1996)
+dt3
+```
+
+```{r grafico nube de puntos}
+
+gf= dt3 %>% ggplot(aes(x=new_sp_m014, y =new_sp_f014, color = factor(year))) + geom_point(size = .5, color = "purple") + 
+  facet_wrap(year ~. ,scales = "free") + 
+  geom_smooth(method = "lm", formula = y ~ x) + 
+  xlim(0,250) + ylim(0,500) + 
+  labs(y= "Casos positivos de TB en niños de 0 a 14 años", 
+       x= "Casos positivos de TB en niños de 0 a 14 años") + 
+  stat_poly_eq(aes(label =  paste(..eq.label.., ..adj.rr.label.., sep = "~~~~")),
+               formula = y~x, parse = TRUE, label.x.npc = .1, color = "black") 
+```
+
+```{r}
+gf
+```
